@@ -1,0 +1,35 @@
+.header {
+	background: #1d1c20;
+}
+.wrapper {
+	width: 1440px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 0 auto;
+}
+.navigation {
+	display: flex;
+	min-width: 380px;
+}
+.navigation_person {
+	composes: navigation;
+	justify-content: flex-end;
+}
+.navigation_link {
+	text-decoration: none;
+	color: #8585ad;
+	border-radius: 40px;
+	display: flex;
+	align-items: center;
+	&:hover {
+		color: #8585ad;
+	}
+}
+.navigation_link_active {
+	composes: navigation_link;
+	color: #ffffff;
+	&:hover {
+		color: #fff;
+	}
+}
