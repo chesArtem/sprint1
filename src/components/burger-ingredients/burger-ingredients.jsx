@@ -8,7 +8,7 @@ import styles from './burger-ingredients.module.css';
 export const BurgerIngredients = (props) => {
 	const [current, setCurrent] = useState('one');
 	return (
-		<>
+		<section className={styles.section + ' pl-5 pr-5'}>
 			<p className={'pt-10 pb-5 text text_type_main-large'}>Соберите бургер</p>
 
 			<div className={styles.wrapper + ' pb-10'}>
@@ -24,7 +24,7 @@ export const BurgerIngredients = (props) => {
 			</div>
 
 			<BurgerIngredientsCategory ingredientsData={props.ingredientsData.data} />
-		</>
+		</section>
 	);
 };
 

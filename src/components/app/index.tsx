@@ -32,14 +32,10 @@ export const App = () => {
 		<>
 			<Header />
 			{!state.isLoading && !state.hasError && state.ingredientsData != null && (
-				<div className={styles.wrapper}>
-					<section className={styles.section + ' pl-5 pr-5'}>
-						<BurgerIngredients ingredientsData={state.ingredientsData} />
-					</section>
-					<section className={styles.section + ' pt-25 pr-4 pb-10 pl-5'}>
-						<BurgerConstructor ingredientsData={state.ingredientsData} />
-					</section>
-				</div>
+				<main className={styles.wrapper}>
+					<BurgerIngredients ingredientsData={state.ingredientsData} />
+					<BurgerConstructor ingredientsData={state.ingredientsData} />
+				</main>
 			)}
 		</>
 	);

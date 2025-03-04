@@ -22,7 +22,7 @@ export const BurgerConstructor = (props) => {
 	};
 
 	return (
-		<>
+		<section className={styles.section + ' pt-25 pr-4 pb-10 pl-5'}>
 			<div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
 				<div className={'pl-8'}>
 					<ConstructorElement
@@ -78,7 +78,7 @@ export const BurgerConstructor = (props) => {
 					<ModalDetails />
 				</Modal>
 			)}
-		</>
+		</section>
 	);
 };
 

@@ -15,3 +15,7 @@
 	justify-content: end;
 	align-items: center;
 }
+
+.section {
+	width: 50%;
+}
