@@ -9,9 +9,9 @@ export const Modal = (props) => {
 	useEffect(() => {
 		const clickEsc = (e) => {
 			if (e.key === 'Escape') {
-				props.close()
+				props.close();
 			}
-		}
+		};
 
 		document.addEventListener('keydown', clickEsc, false);
 
