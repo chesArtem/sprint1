@@ -13,7 +13,7 @@ import { ModalDetails } from '../../modal/modal-details/modal-details';
 
 export const BurgerConstructor = (props) => {
 	const [isModalOpen, setModalOpen] = useState(false);
-	const bun = props.ingredientsData.data.find(el => el.type === 'bun');
+	const bun = props.ingredientsData.data.find((el) => el.type === 'bun');
 	const activeModal = () => {
 		setModalOpen(true);
 	};

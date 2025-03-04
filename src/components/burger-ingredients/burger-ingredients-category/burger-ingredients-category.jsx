@@ -13,15 +13,15 @@ export const BurgerIngredientsCategory = (props) => {
 				ingredientsData={props.ingredientsData}
 			/>
 
-			<p className='text text_type_main-medium'>Начинки</p>
-			<BurgerIngredientsComponent
-				sortType={'main'}
-				ingredientsData={props.ingredientsData}
-			/>
-
 			<p className='text text_type_main-medium'>Соусы</p>
 			<BurgerIngredientsComponent
 				sortType={'sauce'}
+				ingredientsData={props.ingredientsData}
+			/>
+
+			<p className='text text_type_main-medium'>Начинки</p>
+			<BurgerIngredientsComponent
+				sortType={'main'}
 				ingredientsData={props.ingredientsData}
 			/>
 		</div>

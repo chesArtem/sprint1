@@ -12,9 +12,7 @@ export const Order = (props) => {
 				src={props.card.image_large}
 				alt={props.card.name}
 			/>
-			<p className='text text_type_main-medium mb-8'>
-				{props.card.name}
-			</p>
+			<p className='text text_type_main-medium mb-8'>{props.card.name}</p>
 			<div className={styles.infoWrapper}>
 				<div className={styles.info + ' mr-5'}>
 					<p className={'text text_type_main-default mb-2'}>Калории,ккал</p>

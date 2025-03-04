@@ -20,7 +20,7 @@
 	width: 50%;
 }
 
-.wrapperList{
+.wrapperList {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
