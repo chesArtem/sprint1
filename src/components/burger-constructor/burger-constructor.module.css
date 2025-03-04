@@ -1,0 +1,27 @@
+.list {
+	height: 464px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	list-style: none;
+}
+
+.order {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}
+
+.section {
+	width: 50%;
+}
+
+.wrapperList {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
