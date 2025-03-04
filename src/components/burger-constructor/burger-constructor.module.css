@@ -1,0 +1,17 @@
+.list {
+	height: 464px;
+	overflow: hidden;
+	overflow-y: scroll;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+	list-style: none;
+}
+
+.order {
+	display: flex;
+	justify-content: end;
+	align-items: center;
+}

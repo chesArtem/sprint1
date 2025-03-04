@@ -1,4 +1,4 @@
-import styles from './header.module.scss';
+import styles from './header.module.css';
 import {
 	BurgerIcon,
 	ListIcon,
@@ -10,7 +10,7 @@ export const Header = () => {
 	return (
 		<header className={styles.header + ' pb-4 pt-4 '}>
 			<div className={styles.wrapper}>
-				<div className={styles.navigation}>
+				<nav className={styles.navigation}>
 					<a className={styles.navigation_link_active + ' p-5 mr-2'} href='./'>
 						<BurgerIcon className={'mr-2'} type='primary' />
 						<p className='text text_type_main-default'>Конструктор</p>
@@ -19,7 +19,7 @@ export const Header = () => {
 						<ListIcon className={'mr-2'} type='secondary' />
 						<p className='text text_type_main-default'>Лента заказов</p>
 					</a>
-				</div>
+				</nav>
 				<Logo />
 				<div className={styles.navigation_person}>
 					<a className={styles.navigation_link + ' p-5'} href='./'>
