@@ -7,22 +7,22 @@ import {
 import { arrayOf } from 'prop-types';
 import { dataType } from '../../../utils/data-type';
 import { Modal } from '../../../modal/modal';
-import { ModalOrder } from '../../../modal/modal-order/modal-order';
+import { Order } from '../../../order/order';
 
 export const BurgerIngredientsComponent = (props) => {
-	const [modal, setModal] = useState({
+	const [isModalOpen, setModalOpen] = useState({
 		card: null,
 		active: false,
 	});
 
 	const activeModal = (el) => {
-		setModal({
+		setModalOpen({
 			card: el,
 			active: true,
 		});
 	};
 	const closeModal = () => {
-		setModal({
+		setModalOpen({
 			card: null,
 			active: false,
 		});
@@ -49,9 +49,9 @@ export const BurgerIngredientsComponent = (props) => {
 						</p>
 					</div>
 				))}
-			{modal.active && (
+			{isModalOpen.active && (
 				<Modal close={closeModal}>
-					<ModalOrder card={modal.card} />
+					<Order card={isModalOpen.card} />
 				</Modal>
 			)}
 		</div>

@@ -19,3 +19,9 @@
 .section {
 	width: 50%;
 }
+
+.wrapperList{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}

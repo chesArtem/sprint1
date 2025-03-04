@@ -1,7 +1,7 @@
-import { dataType } from '../../utils/data-type';
-import styles from './modal-order.module.css';
+import { dataType } from '../utils/data-type';
+import styles from './order.module.css';
 
-export const ModalOrder = (props) => {
+export const Order = (props) => {
 	return (
 		<div className={styles.wrapper + ' p-10 pb-15'}>
 			<p className={styles.title + ' text text_type_main-large'}>
@@ -13,7 +13,7 @@ export const ModalOrder = (props) => {
 				alt={props.card.name}
 			/>
 			<p className='text text_type_main-medium mb-8'>
-				Биокотлета из марсианской Магнолии
+				{props.card.name}
 			</p>
 			<div className={styles.infoWrapper}>
 				<div className={styles.info + ' mr-5'}>
@@ -38,6 +38,6 @@ export const ModalOrder = (props) => {
 		</div>
 	);
 };
-ModalOrder.propTypes = {
+Order.propTypes = {
 	card: dataType.isRequired,
 };
