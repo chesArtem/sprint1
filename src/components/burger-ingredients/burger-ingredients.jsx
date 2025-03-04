@@ -3,7 +3,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIngredientsCategory } from './burger-ingredients-category/burger-ingredients-category';
 import { shape, arrayOf } from 'prop-types';
 import { dataType } from '../../utils/data-type';
-import styles from './burger-ingredients.module.css'
+import styles from './burger-ingredients.module.css';
 
 export const BurgerIngredients = (props) => {
 	const [current, setCurrent] = useState('one');
