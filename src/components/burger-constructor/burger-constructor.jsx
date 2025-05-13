@@ -5,70 +5,129 @@ import {
 	DragIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
-import { dataType } from '../../utils/data-type';
-import { shape, arrayOf } from 'prop-types';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Modal } from '../../modal/modal';
 import { ModalDetails } from '../../modal/modal-details/modal-details';
+import { ConstructorElementEmpty } from './constructor-element-empty';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	addItem,
+	getConstructorBun,
+	getConstructorIngredients,
+	removeItem,
+} from '../../services/burger-constructor/slice';
+import { useDrop } from 'react-dnd';
+import { WrapperDragElement } from './wrapper-drag-element';
+import { createOrder } from '../../services/order-details/slice';
 
-export const BurgerConstructor = (props) => {
+export const BurgerConstructor = () => {
 	const [isModalOpen, setModalOpen] = useState(false);
-	const bun = props.ingredientsData.data.find((el) => el.type === 'bun');
-	const activeModal = () => {
+	const constructorIngredients = useSelector(getConstructorIngredients);
+	const constructorBun = useSelector(getConstructorBun);
+	const dispatch = useDispatch();
+
+	const handleOrderClick = useCallback(() => {
+		if (!constructorBun) return;
+
+		const ingredientIds = [
+			constructorBun._id,
+			...constructorIngredients.map((item) => item._id),
+			constructorBun._id,
+		];
+
+		dispatch(createOrder(ingredientIds));
 		setModalOpen(true);
-	};
+	}, [dispatch, constructorBun, constructorIngredients]);
+
 	const closeModal = () => {
 		setModalOpen(false);
 	};
 
+	const [, dropTarget] = useDrop({
+		accept: 'ingredient',
+		drop: (item) => {
+			dispatch(addItem(item));
+		},
+	});
+
+	const removeIngredient = useCallback(
+		(item) => {
+			dispatch(removeItem(item));
+		},
+		[dispatch]
+	);
+
+	const totalPrice = useMemo(() => {
+		const bunPrice = constructorBun ? constructorBun.price * 2 : 0;
+		const itemsPrice = constructorIngredients.reduce(
+			(acc, item) => acc + item.price,
+			0
+		);
+		return bunPrice + itemsPrice;
+	}, [constructorBun, constructorIngredients]);
+
 	return (
-		<section className={styles.section + ' pt-25 pr-4 pb-10 pl-5'}>
+		<section
+			className={styles.section + ' pt-25 pr-4 pb-10 pl-5'}
+			ref={dropTarget}>
 			<div className={styles.wrapperList}>
 				<div className={'pl-8'}>
-					<ConstructorElement
-						type='top'
-						isLocked={true}
-						text={bun.name + ' (верх)'}
-						price={bun.price}
-						thumbnail={bun.image}
-					/>
+					{constructorBun ? (
+						<ConstructorElement
+							type={'top'}
+							isLocked={true}
+							text={constructorBun.name + ' (верх)'}
+							price={constructorBun.price}
+							thumbnail={constructorBun.image}
+						/>
+					) : (
+						<ConstructorElementEmpty type={'top'} isLocked={true} />
+					)}
 				</div>
 				<ul className={styles.list + ' mt-1 mb-1 pl-2 pr-4'}>
-					{props.ingredientsData.data
-						.filter((el) => el.type != 'bun')
-						.map((el) => {
+					{constructorIngredients.length === 0 ? (
+						<li className={styles.item + ' mb-4'}>
+							<DragIcon type='primary' />
+							<ConstructorElementEmpty />
+						</li>
+					) : (
+						constructorIngredients.map((el, index) => {
 							return (
-								<li className={styles.item + ' mb-4'} key={el._id}>
-									<DragIcon type='primary' />
-									<ConstructorElement
-										text={el.name}
-										price={el.price}
-										thumbnail={el.image}
-									/>
-								</li>
+								<WrapperDragElement
+									key={el._id}
+									el={el}
+									index={index}
+									removeIngredient={removeIngredient}
+								/>
 							);
-						})}
+						})
+					)}
 				</ul>
-				<div className={'pl-8 mb-2'}>
-					<ConstructorElement
-						type='bottom'
-						isLocked={true}
-						text={bun.name + ' (низ)'}
-						price={bun.price}
-						thumbnail={bun.image}
-					/>
+				<div className={'pl-8  mb-2'}>
+					{constructorBun ? (
+						<ConstructorElement
+							type={'bottom'}
+							isLocked={true}
+							text={constructorBun.name + ' (низ)'}
+							price={constructorBun.price}
+							thumbnail={constructorBun.image}
+						/>
+					) : (
+						<ConstructorElementEmpty type={'bottom'} isLocked={true} />
+					)}
 				</div>
 			</div>
+
 			<div className={styles.order + ' mt-10'}>
 				<p className='text text_type_digits-medium mr-10'>
-					<span>310</span>
+					<span>{totalPrice}</span>
 					<CurrencyIcon type='primary' />
 				</p>
 				<Button
 					htmlType='button'
 					type='primary'
 					size='medium'
-					onClick={activeModal}>
+					onClick={handleOrderClick}>
 					Оформить заказ
 				</Button>
 			</div>
@@ -80,10 +139,4 @@ export const BurgerConstructor = (props) => {
 			)}
 		</section>
 	);
-};
-
-BurgerConstructor.propTypes = {
-	ingredientsData: shape({
-		data: arrayOf(dataType.isRequired).isRequired,
-	}).isRequired,
 };

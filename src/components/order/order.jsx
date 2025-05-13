@@ -1,4 +1,4 @@
-import { dataType } from '../utils/data-type';
+import { dataType } from '../../utils/data-type';
 import styles from './order.module.css';
 
 export const Order = (props) => {

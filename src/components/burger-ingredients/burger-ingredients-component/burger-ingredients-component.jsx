@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import styles from './burger-ingredients-component.module.css';
-import {
-	Counter,
-	CurrencyIcon,
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { arrayOf } from 'prop-types';
+import { arrayOf, string } from 'prop-types';
 import { dataType } from '../../../utils/data-type';
 import { Modal } from '../../../modal/modal';
-import { Order } from '../../../order/order';
+import { Order } from '../../order/order';
+import { IngredientCard } from '../ingredient-card/ingredient-card';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+	clearIngredient,
+	getCard,
+	setIngredient,
+} from '../../../services/ingredient-details/slice';
 
 export const BurgerIngredientsComponent = (props) => {
 	const [isModalOpen, setModalOpen] = useState({
@@ -15,43 +18,37 @@ export const BurgerIngredientsComponent = (props) => {
 		active: false,
 	});
 
+	const ingredientDetails = useSelector(getCard);
+
+	const dispatch = useDispatch();
+
 	const activeModal = (el) => {
 		setModalOpen({
-			card: el,
 			active: true,
 		});
+		dispatch(setIngredient(el));
 	};
 	const closeModal = () => {
 		setModalOpen({
-			card: null,
 			active: false,
 		});
+		dispatch(clearIngredient());
 	};
 
 	return (
 		<div className={styles.wrapper + ' pt-6 pb-2 pl-4 pr-4'}>
-			{props.ingredientsData
+			{props.ingredients
 				.filter((el) => el.type === props.sortType)
 				.map((el) => (
-					<div
+					<IngredientCard
 						key={el._id}
-						className={styles.ingredient + ' mb-8'}
-						aria-hidden='true'
-						onClick={() => activeModal(el)}>
-						<Counter count={1} size='default' extraClass='m-1' />
-						<img className={'pl-4 pr-4 pb-1'} src={el.image} alt={el.name} />
-						<p className={styles.price + ' text text_type_digits-default mb-1'}>
-							<span>{el.price}</span>
-							<CurrencyIcon type='primary' />
-						</p>
-						<p className={styles.name + ' text text_type_main-default'}>
-							{el.name}
-						</p>
-					</div>
+						el={el}
+						onClick={() => activeModal(el)}
+					/>
 				))}
 			{isModalOpen.active && (
 				<Modal close={closeModal}>
-					<Order card={isModalOpen.card} />
+					<Order card={ingredientDetails} />
 				</Modal>
 			)}
 		</div>
@@ -59,5 +56,6 @@ export const BurgerIngredientsComponent = (props) => {
 };
 
 BurgerIngredientsComponent.propTypes = {
-	ingredientsData: arrayOf(dataType.isRequired).isRequired,
+	ingredients: arrayOf(dataType.isRequired).isRequired,
+	sortType: string.isRequired,
 };
