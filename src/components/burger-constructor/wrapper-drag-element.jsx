@@ -42,13 +42,13 @@ export const WrapperDragElement = ({ el, index, removeIngredient }) => {
 
 	drag(drop(ref));
 	return (
-		<li ref={ref} className={styles.item + ' mb-4'} key={el._id}>
+		<li ref={ref} className={styles.item + ' mb-4'}>
 			<DragIcon type='primary' />
 			<ConstructorElement
 				text={el.name}
 				price={el.price}
 				thumbnail={el.image}
-				handleClose={() => removeIngredient(el._id)}
+				handleClose={() => removeIngredient(el.uuid)}
 			/>
 		</li>
 	);

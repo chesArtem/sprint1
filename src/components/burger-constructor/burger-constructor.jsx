@@ -94,7 +94,7 @@ export const BurgerConstructor = () => {
 						constructorIngredients.map((el, index) => {
 							return (
 								<WrapperDragElement
-									key={el._id}
+									key={el.uuid}
 									el={el}
 									index={index}
 									removeIngredient={removeIngredient}

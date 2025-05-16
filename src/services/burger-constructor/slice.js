@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import uuid from 'react-uuid';
 export const constructorSlice = createSlice({
 	name: 'burgerConstructor',
 	initialState: {
@@ -12,6 +12,11 @@ export const constructorSlice = createSlice({
 	},
 	reducers: {
 		addItem: (state, action) => {
+			action.payload = {
+				...action.payload,
+				uuid: uuid(),
+			};
+
 			if (action.payload.type === 'bun') {
 				state.bun = action.payload;
 			} else {
@@ -19,7 +24,7 @@ export const constructorSlice = createSlice({
 			}
 		},
 		removeItem: (state, action) => {
-			state.items = state.items.filter((item) => item._id !== action.payload);
+			state.items = state.items.filter((item) => item.uuid !== action.payload);
 		},
 		moveItem: (state, action) => {
 			if (!Array.isArray(state.items)) return;
